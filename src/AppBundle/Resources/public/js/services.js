@@ -2,17 +2,14 @@ app.factory('User', function ($http, $q) {
     return {
         login: function (username, password) {
             var self = this;
-            return $http.get('/login').then(function (data) {
-                console.log("hit login");
-                if (data.status != 200) {
-                    return $q.reject("Couldn't load /login");
+            return $http.post('/login_check', {'_username': username, '_password': password}).then(function (data) {
+                if (data.data.success) {
+                    self.queriedUser = true;
+                    self.current = data.data.user;
+                    return $q.resolve(data.data.user);
+                } else {
+                    return $q.reject(data.data.message);
                 }
-                var tokenMatch = data.data.match(/ name="_csrf_token" value="([^"]+)"/);
-                if (!tokenMatch) {
-                    return $q.reject("Can't find CSRF token");
-                }
-                return $http.post('/login_check', {'_csrf_token': tokenMatch[1], '_username': username, '_password': password});
-            }).then(function (data) {
                 return self.queryCurrentUser();
             });
         },
