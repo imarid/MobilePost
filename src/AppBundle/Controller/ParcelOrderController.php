@@ -15,29 +15,9 @@ class ParcelOrderController extends FOSRestController
         $view = $this->view($data, 200);
         return $this->handleView($view);
     }
-
-    public function getParcelorderAction($id){
-        $data = $this->getDoctrine()->getRepository('AppBundle\Entity\ParcelOrder')->findOneById($id);
+    public function getParcelordersUnassignedAction(){
+        $data = $this->getDoctrine()->getRepository('AppBundle\Entity\ParcelOrder')->findAllUnassigned();
         $view = $this->view($data, 200);
-        return $this->handleView($view);
-    }
-
-    public function postParcelorderAction(Request $request)
-    {
-        try {
-            $new = $this->container
-                ->get('pai_rest.parcelorder.form')
-                ->post($request->request->all());
-            $routeOptions = array(
-                'id' => $new->getId(),
-                '_format' => $request->get('_format')
-            );
-            $view = $this->routeRedirectView('api_1_get_parcelorder', $routeOptions);
-        }
-        catch (InvalidFormException $exception)
-        {
-            $view = $this->view(array('form' => $exception->getForm()), 400);
-        }
         return $this->handleView($view);
     }
 	public function putParcelAction(Request $request, $id)
@@ -68,12 +48,38 @@ class ParcelOrderController extends FOSRestController
 			return $exception->getForm();
 		}
 	}
+    public function getParcelorderAction($id){
+        $data = $this->getDoctrine()->getRepository('AppBundle\Entity\ParcelOrder')->findOneById($id);
+        $view = $this->view($data, 200);
+        return $this->handleView($view);
+    }
+
+    public function postParcelorderAction(Request $request)
+    {
+        try {
+            $new = $this->container
+                ->get('pai_rest.parcelorder.form')
+                ->post($request->request->all());
+            $routeOptions = array(
+                'id' => $new->getId(),
+                '_format' => $request->get('_format')
+            );
+            $view = $this->routeRedirectView('api_1_get_parcelorder', $routeOptions);
+        }
+        catch (InvalidFormException $exception)
+        {
+            $view = $this->view(array('form' => $exception->getForm()), 400);
+        }
+        return $this->handleView($view);
+    }
+	
 	/**
 	*deleteParcelorderAction - implemented by Och Tomasz
 	*
 	*/
-	public function deleteParcelorderAction(Request $request, $id)
-	{
+	
+	public function deleteParcelorderAction(Request $request, $id) 
+	{ 
 		var_dump($request);
 		$parcel = $this->getDoctrine()->getRepository('PAIParcelBundle:Parcelorder')->find($id);
 		if ($parcel)
@@ -82,13 +88,14 @@ class ParcelOrderController extends FOSRestController
 		}
 		else
 		{
-
+			
 			throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.', $id));
-		}
+		}	
 	}
-
-    // Get all orders.
-    public function getParcelAction() {
-        return $this->getDoctrine()->getRepository('PAIParcelBundle:Parcel')->findAll();
-    }
+        
+        public function getListAction()
+        {
+            $list=$this->getDoctrine()->getRepository("AppBundle:ParcelOrder")->findAll();
+            return $this->render("AppBundle:ParcelOrder/list.html.twig",array("list"=>$list));
+        }
 }

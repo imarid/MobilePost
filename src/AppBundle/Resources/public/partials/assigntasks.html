@@ -1,0 +1,35 @@
+<table>
+    <caption>Przydziel zadanie</caption>
+    <thead>
+        <tr>
+            <th>Adres źródłowy</th>
+            <th>Adres docelowy</th>
+            <th>Wybierz kuriera</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-hide="orders.length">
+            <td colspan="3">
+                Brak nieprzydzielonych zadań
+            </td>
+        </tr>
+        <tr ng-repeat="order in orders">
+            <td>
+                {{order.sender.first_name}} {{order.sender.last_name}}<br />
+                {{order.sender.street}}<br />
+                {{order.sender.postal_code}} {{order.sender.city.name}}
+            </td>
+            <td>
+                {{order.receiver.first_name}} {{order.receiver.last_name}}<br />
+                {{order.receiver.street}}<br />
+                {{order.receiver.postal_code}} {{order.receiver.city.name}}
+            </td>
+            <td>
+                <select ng-model="order.assignTo">
+                    <option ng-repeat="postman in postmans" value="{{postman.id}}">{{postman.name}}</option>
+                </select>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<button ng-click="saveAssignments()">Zapisz przydzielenia zadań</button>

@@ -10,6 +10,10 @@ app.config(['$routeProvider', function ($routeProvider) {
             'templateUrl': '/bundles/app/partials/login.html',
             'controller': 'LoginCtrl'
         })
+        .when('/assigntasks', {
+            'templateUrl': '/bundles/app/partials/assigntasks.html',
+            'controller': 'AssignTasksCtrl'
+        })
         .otherwise({
             'template': '',
             'controller': 'HomeCtrl'

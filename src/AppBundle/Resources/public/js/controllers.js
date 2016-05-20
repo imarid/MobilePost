@@ -16,17 +16,40 @@ app.controller('LoginCtrl', ['$scope', '$location', 'User', function ($scope, $l
 }]);
 
 app.controller('HomeCtrl', ['$scope', '$location', 'User', function ($scope, $location, User) {
-    $scope.init = function () {
-        // Scope init
-        console.log('// Scope init');
-        return User.getCurrentUser().then(function (user) {
-            console.log('user');
-            console.log(user);
+    User.getCurrentUser().then(function (user) {
+        if (user.roles.indexOf('ROLE_ADMIN') != -1) {
+            // Homepage for admin
+            $location.path('/assigntasks');
+        } else {
+            // Homepage for postman
             $location.path('/parcelorders');
-        }, function () {
-            console.log('nouser');
-            $location.path('/login');
+        }
+    }, function () {
+        // Homepage for not logged in user (login form)
+        $location.path('/login');
+    });
+}]);
+
+app.controller('AssignTasksCtrl', ['$scope', '$q', 'ParcelOrder', 'Postman', 'Task', function ($scope, $q, ParcelOrder, Postman, Task) {
+    function reloadOrders() {
+        $scope.orders = ParcelOrder.queryUnassigned();
+    }
+    reloadOrders();
+    $scope.postmans = Postman.query();
+    $scope.saveAssignments = function () {
+        promises = [];
+        $scope.orders.forEach(function (order) {
+            if (order.assignTo) {
+                promises.push(Task.post({'parcelOrder': order.id, 'postman': +order.assignTo}).$promise);
+            }
         });
+        if (!promises.length) {
+            alert('Nie wybrano żadnego zlecenia do przydzielenia');
+        } else {
+            $q.all(promises).then(function () {
+                reloadOrders();
+                alert('Przydzielenia zostały zapisane');
+            });
+        }
     };
-    $scope.init();
 }]);

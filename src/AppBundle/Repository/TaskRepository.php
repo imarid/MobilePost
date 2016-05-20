@@ -10,10 +10,4 @@ namespace AppBundle\Repository;
  */
 class TaskRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getAllTasksByPostmanId($postmanId){
-        $taskRepository = $this->getDoctrine()->getRepository('AppBundle:Task');
-        $tasks = $taskRepository->findByPostman($postmanId);
-        $view = $this->view($tasks, 200);
-        return $this->handleView($view);
-    }
 }

@@ -1,0 +1,7 @@
+{# empty Twig template #}
+{% extends "base.html.twig" %}
+{% block body %}
+<form action="{{ path("api_1_postman_post_addpostman",{'_format':"html"}) }}" method="post">
+    {{form(form)}}
+</form>
+{% endblock %}

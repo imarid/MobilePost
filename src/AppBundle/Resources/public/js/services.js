@@ -2,17 +2,14 @@ app.factory('User', function ($http, $q) {
     return {
         login: function (username, password) {
             var self = this;
-            return $http.get('/login').then(function (data) {
-                console.log("hit login");
-                if (data.status != 200) {
-                    return $q.reject("Couldn't load /login");
+            return $http.post('/login_check', {'_username': username, '_password': password}).then(function (data) {
+                if (data.data.success) {
+                    self.queriedUser = true;
+                    self.current = data.data.user;
+                    return $q.resolve(data.data.user);
+                } else {
+                    return $q.reject(data.data.message);
                 }
-                var tokenMatch = data.data.match(/ name="_csrf_token" value="([^"]+)"/)
-                if (!tokenMatch) {
-                    return $q.reject("Can't find CSRF token");
-                }
-                return $http.post('/login_check', {'_csrf_token': tokenMatch[1], '_username': username, '_password': password});
-            }).then(function (data) {
                 return self.queryCurrentUser();
             });
         },
@@ -48,3 +45,22 @@ app.factory('User', function ($http, $q) {
         current: null
     };
 });
+
+app.factory('ParcelOrder', ['$resource', function ($resource) {
+    return $resource('/api/v1/parcelorders/:id.json', {}, {
+        query: {method: 'GET', isArray: true},
+        queryUnassigned: {method: 'GET', isArray: true, url: '/api/v1/parcelorders/unassigned.json'}
+    });
+}]);
+
+app.factory('Postman', ['$resource', function ($resource) {
+    return $resource('/api/v1/postmans/:id.json', {}, {
+        query: {method: 'GET', isArray: true},
+    });
+}]);
+
+app.factory('Task', ['$resource', function ($resource) {
+    return $resource('/api/v1/tasks/:id.json', {}, {
+        post: {method: 'POST'}
+    });
+}]);

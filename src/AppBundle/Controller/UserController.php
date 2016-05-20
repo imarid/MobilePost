@@ -16,4 +16,12 @@ class UserController extends FOSRestController
         $view = $this->view($data, 200);
         return $this->handleView($view);
     }
+	
+    // by Kamil Rodzik
+    public function getPostmantasksAction($postmanId){
+        $taskRepository = $this->getDoctrine()->getRepository('AppBundle:Task');
+        $tasks = $taskRepository->findByPostman($postmanId);
+        $view = $this->view($tasks, 200);
+        return $this->handleView($view);
+    }
 }
