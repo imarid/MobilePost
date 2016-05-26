@@ -21,3 +21,9 @@ app_task:
     prefix: /v1
     resource: 'AppBundle\Controller\TaskController'
     name_prefix: api_1_task_
+
+app_receiver:
+    type: rest
+    prefix: /v1
+    resource: 'AppBundle\Controller\ReceiverController'
+    name_prefix: api_1_user_
