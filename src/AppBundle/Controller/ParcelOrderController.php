@@ -52,4 +52,30 @@ class ParcelOrderController extends FOSRestController
 			throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.', $id));
 		}	
 	}
+        
+    public function getParcelorderAddAction(){
+    //public function getAddAction(Request $request){
+        $parcelOrder = new \AppBundle\Entity\ParcelOrder();
+        $form = $this->createForm("AppBundle\Form\ParcelOrderType", $parcelOrder);
+        
+        return $this->render("AppBundle:ParcelOrder/add.html.twig", array('form'=>$form->createView()));
+    }
+    
+    public function postParcelorderAddAction(Request $request){
+    //public function postAddAction(Request $request){
+        $parcelOrder = new \AppBundle\Entity\ParcelOrder();
+        $form = $this->createForm("AppBundle\Form\ParcelOrderType", $parcelOrder);
+        
+        if($request->isMethod("POST")){
+            $form->handleRequest($request);
+            if($form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($parcelOrder);
+                $em->flush();
+                return new \Symfony\Component\HttpFoundation\RedirectResponse($this->generateUrl("api_1_get_parcelorder", array("id"=>$parcelOrder->getId(), "_format"=>"json")));
+            }
+        }
+        
+        return $this->render("AppBundle:ParcelOrder/add.html.twig", array('form'=>$form->createView()));
+    }
 }

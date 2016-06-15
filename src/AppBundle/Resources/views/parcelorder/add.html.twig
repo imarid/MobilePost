@@ -1,0 +1,119 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <h2 class="header" >Dodaj zamówienie</h2>
+    <div ng-controller="formController">
+        <form ng-submit="submit()" id="parcelOrderForm" method="post">
+            <div id="parcel_order">
+                <div>
+                    <label class="required">Paczka</label>
+                    <div id="parcel_order_parcel">
+                        <div>
+                            <label for="parcel_order_parcel_parcelHash" class="required">Kod paczki</label>
+                            <input type="text" ng-model="parcelHash" id="parcel_order_parcel_parcelHash" name="parcel_order[parcel][parcelHash]" required="required">
+                        </div>
+                        <div>
+                            <label for="parcel_order_parcel_notes" class="required">Notatki</label>
+                            <textarea ng-model="notes" id="parcel_order_parcel_notes" name="parcel_order[parcel][notes]" required="required"></textarea>
+                        </div>
+                        <div>
+                            <label for="parcel_order_parcel_weight" class="required">Waga</label>
+                            <input type="number" ng-model="weight" id="parcel_order_parcel_weight" name="parcel_order[parcel][weight]" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="required">Nadawca</label>
+                    <div id="parcel_order_sender">
+                        <div>
+                            <label for="parcel_order_sender_firstName" class="required">Imie</label>
+                            <input type="text" ng-model="senderFirstName" id="parcel_order_sender_firstName" name="parcel_order[sender][firstName]" required="required">
+                        </div>
+                        <div>
+                            <label for="parcel_order_sender_lastName" class="required">Nazwisko</label>
+                            <input type="text" ng-model="senderLastName" id="parcel_order_sender_lastName" name="parcel_order[sender][lastName]" required="required">
+                        </div>
+                        <div>
+                            <label for="parcel_order_sender_street" class="required">Ulica</label>
+                            <input type="text" ng-model="senderStreet" id="parcel_order_sender_street" name="parcel_order[sender][street]" required="required">
+                        </div>
+                        <div>
+                            <label for="parcel_order_sender_postalCode" class="required">Kod pocztowy</label>
+                            <input type="text" ng-model="senderPostalCode" id="parcel_order_sender_postalCode" name="parcel_order[sender][postalCode]" required="required">
+                        </div>
+                        <div>
+                            <label for="parcel_order_sender_phone" class="required">Nr tel.</label>
+                            <input type="text" ng-model="senderPhone" id="parcel_order_sender_phone" name="parcel_order[sender][phone]" required="required">
+                        </div>
+                        <div>
+                            <label for="parcel_order_sender_email" class="required">E-mail</label>
+                            <input type="email" ng-model="senderEmail" id="parcel_order_sender_email" name="parcel_order[sender][email]" required="required">
+                        </div>
+                        <div>
+                            <label class="required">Miasto</label>
+                            <div id="parcel_order_sender_city">
+                                <div>
+                                    <input type="text" ng-model="senderCityName" id="parcel_order_sender_city_name" name="parcel_order[sender][city][name]" required="required">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="required">Odbiorca</label>
+                    <div id="parcel_order_receiver">
+                        <div>
+                            <label for="parcel_order_receiver_firstName" class="required">Imie</label>
+                            <input type="text" ng-model="receiverFirstName" id="parcel_order_receiver_firstName" name="parcel_order[receiver][firstName]" required="required">
+                        </div>
+                        <div>
+                            <label for="parcel_order_receiver_lastName" class="required">Nazwisko</label>
+                            <input type="text" ng-model="receiverLastName" id="parcel_order_receiver_lastName" name="parcel_order[receiver][lastName]" required="required">
+                        </div>
+                    <div>
+                        <label for="parcel_order_receiver_street" class="required">Ulica</label>
+                        <input ng-model="receiverStreet" type="text" id="parcel_order_receiver_street" name="parcel_order[receiver][street]" required="required">
+                    </div>
+                    <div>
+                        <label for="parcel_order_receiver_postalCode" class="required">Kod pocztowy</label>
+                        <input type="text" ng-model="receiverPostalCode" id="parcel_order_receiver_postalCode" name="parcel_order[receiver][postalCode]" required="required">
+                    </div>
+                    <div>
+                        <label for="parcel_order_receiver_phone" class="required">Nr tel.</label>
+                        <input type="text" ng-model="receiverPhone" id="parcel_order_receiver_phone" name="parcel_order[receiver][phone]" required="required">
+                    </div>
+                    <div>
+                        <label for="parcel_order_receiver_email" class="required">E-mail</label>
+                        <input type="email" ng-model="receiverEmail" id="parcel_order_receiver_email" name="parcel_order[receiver][email]" required="required">
+                    </div>
+                    <div>
+                        <label class="required">Miasto</label>
+                        <div id="parcel_order_receiver_city">
+                            <div>
+                                <input type="text" ng-model="receiverCityName" id="parcel_order_receiver_city_name" name="parcel_order[receiver][city][name]" required="required">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="parcel_order_status" class="required">Status</label>
+                <input type="text" ng-model="status" id="parcel_order_status" name="parcel_order[status]" required="required">
+            </div>
+            <div>
+                <label class="required">Sledzenie</label>
+                <div id="parcel_order_tracking">
+                    <input type="radio" ng-model="tracking" id="parcel_order_tracking_0" name="parcel_order[tracking]" required="required" value="1">
+                    <label for="parcel_order_tracking_0" class="required">Tak</label>
+                    <input type="radio" ng-model="tracking" id="parcel_order_tracking_1" name="parcel_order[tracking]" required="required" value="" checked="checked">
+                    <label for="parcel_order_tracking_1" class="required">Nie</label>
+                </div>
+            </div>
+            <div>
+                <button type="submit" id="parcel_order_save" name="parcel_order[save]">Dodaj</button>
+            </div>
+        </div>
+        <div ng-if="result == 1">Dodano</div>
+        <div ng-if="result == -1">Nie dodano</div>
+    </form>
+    </div>
+{% endblock %}
