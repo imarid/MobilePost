@@ -12,16 +12,21 @@ class TaskController extends FOSRestController
 {
     public function postTaskAction(Request $request)
     {
-        // TODO: This is provisory implementation, needs rewrite by whoever
-        // was selected to do that
-        $doctrine = $this->getDoctrine();
-        $task = new \AppBundle\Entity\Task();
-        $task->setPostman($doctrine->getRepository('AppBundle:Postman')->find($request->request->get('postman')));
-        $task->setParcelOrder($doctrine->getRepository('AppBundle:ParcelOrder')->find($request->request->get('parcelOrder')));
-        $em = $doctrine->getManager();
-        $em->persist($task);
-        $em->flush();
-        $view = $this->view(true, 200);
+        try {
+            $new = $this->container
+                ->get('pai_rest.task.form')
+                ->post($request->request->all());
+            //$routeOptions = array(
+            //    'id' => $new->getId(),
+            //    '_format' => $request->get('_format')
+            //);
+            //$view = $this->routeRedirectView('api_1_get_parcelorder', $routeOptions);
+            $view = $this->view($new, 200);
+        }
+        catch (InvalidFormException $exception)
+        {
+            $view = $this->view(array('form' => $exception->getForm()), 400);
+        }
         return $this->handleView($view);
     }
 }
