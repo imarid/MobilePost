@@ -70,6 +70,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
         $encodedPassword = $passwordEncoder->encodePassword($johnPostman, 'kitten');
         $johnPostman->setPassword($encodedPassword);
         $johnPostman->setEnabled(true);
+        $johnPostman->setName('John Postman');
         $johnPostman->setCity($this->getReference('city'));
         $manager->persist($johnPostman);
 

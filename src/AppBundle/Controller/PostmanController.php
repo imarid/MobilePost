@@ -2,13 +2,19 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-class PostmanController extends Controller
+class PostmanController extends FOSRestController
 {
+    public function getPostmansAction()
+    {
+        $data = $this->getDoctrine()->getRepository('AppBundle\Entity\Postman')->findAll();
+        $view = $this->view($data, 200);
+        return $this->handleView($view);
+    }
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */

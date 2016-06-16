@@ -15,6 +15,11 @@ class ParcelOrderController extends FOSRestController
         $view = $this->view($data, 200);
         return $this->handleView($view);
     }
+    public function getParcelordersUnassignedAction(){
+        $data = $this->getDoctrine()->getRepository('AppBundle\Entity\ParcelOrder')->findAllUnassigned();
+        $view = $this->view($data, 200);
+        return $this->handleView($view);
+    }
 	public function putParcelAction(Request $request, $id)
 	{
 		try

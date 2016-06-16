@@ -24,4 +24,11 @@ class ParcelOrderRepository extends \Doctrine\ORM\EntityRepository
 		$em->remove($parcelOrder);
 		$em->flush();
     } 
+
+    function findAllUnassigned()
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT po FROM AppBundle:ParcelOrder po WHERE NOT EXISTS (SELECT t FROM AppBundle:Task t WHERE t.id = po.id)'
+        )->getResult();
+    }
 }

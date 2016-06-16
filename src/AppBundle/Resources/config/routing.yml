@@ -15,3 +15,15 @@ app_postman:
     prefix: /v1
     resource: 'AppBundle\Controller\PostmanController'
     name_prefix: api_1_postman_   
+
+app_task:
+    type: rest
+    prefix: /v1
+    resource: 'AppBundle\Controller\TaskController'
+    name_prefix: api_1_task_
+
+app_receiver:
+    type: rest
+    prefix: /v1
+    resource: 'AppBundle\Controller\ReceiverController'
+    name_prefix: api_1_user_

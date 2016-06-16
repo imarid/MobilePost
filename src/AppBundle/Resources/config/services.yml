@@ -1,7 +1,12 @@
 parameters:
     pai_rest.parcelorder.class: AppBundle\Entity\ParcelOrder
+    pai_rest.task.class: AppBundle\Entity\Task
 
 services:
     pai_rest.parcelorder.form:
         class: AppBundle\Handler\ParcelOrderFormHandler
         arguments: ['@doctrine.orm.entity_manager', %pai_rest.parcelorder.class%, '@form.factory', 'AppBundle\Form\ParcelOrderType']
+
+    pai_rest.task.form:
+        class: AppBundle\Handler\ParcelOrderFormHandler
+        arguments: ['@doctrine.orm.entity_manager', %pai_rest.task.class%, '@form.factory', 'AppBundle\Form\TaskType']
