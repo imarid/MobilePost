@@ -1,4 +1,26 @@
 Welcome!
-<ul>
-<li ng-repeat="a in data">{{a.id}}</li>
-</ul>
+<table border=2>
+	<tr>
+		<th>id</th>
+		<th>sender</th>
+		<th>receiver</th>
+		<th>status</th>
+		<th>tracking</th>
+
+	</tr>
+	<tr ng-repeat="a in data" ng-redirect-to="#edit/{{a.id}}">
+		<td>{{a.id}}  </td>
+		<td>{{a.sender.first_name}} {{a.sender.last_name}} <br/>
+		{{a.sender.street}} <br/>
+		{{a.sender.postal_code}} {{a.sender.city.name}}
+		</td>
+		<td>
+		 {{a.receiver.first_name}} {{a.receiver.last_name}}<br />
+     {{a.receiver.street}}<br />
+     {{a.receiver.postal_code}} {{a.receiver.city.name}}
+		</td>
+		<td>{{a.status}}</td>
+		<td>{{a.tracking}}</td>
+
+	</tr>
+</table>
