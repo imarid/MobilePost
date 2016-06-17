@@ -20,7 +20,7 @@ class ParcelOrderController extends FOSRestController
         $view = $this->view($data, 200);
         return $this->handleView($view);
     }
-	public function putParcelAction(Request $request, $id)
+	public function putParcelorderAction(Request $request, $id)
 	{
 		try
 		{
