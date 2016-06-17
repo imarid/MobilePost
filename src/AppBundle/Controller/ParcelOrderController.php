@@ -34,14 +34,13 @@ class ParcelOrderController extends FOSRestController
 			}
 			else {
 				$statusCode = Response::HTTP_NO_CONTENT;
-				$parcel = $this->container->get('pai_rest.parcelorder.form')
-				->put($parcel,$request->request->all());
+				$parcel = $this->container->get('pai_rest.parcelorder.form')->put($parcel,$request->request->all());
 			}
 			$routeOptions = array(
 				'id' => $parcel->getId(),
 				'_format' => $request->get('_format')
 			);
-			return $this->routeRedirectView('api_1_get_parcel',$routeOptions,$statusCode);
+			return $this->handleView($this->routeRedirectView('api_1_parcelorder_get_parcelorder',$routeOptions,$statusCode));//api
 		}
 		catch (InvalidFormException $exception)
 		{
