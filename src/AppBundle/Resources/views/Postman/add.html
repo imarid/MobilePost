@@ -1,15 +1,7 @@
-{# empty Twig template #}
-{% extends "base.html.twig" %}
-{% block body %}
-    <script src="{{ asset('bundles/app/node_modules/angular/angular.js') }}"></script>
-    <script src="{{ asset('bundles/app/node_modules/angular-resource/angular-resource.js') }}"></script>
-    <script src="{{ asset('bundles/app/node_modules/angular-route/angular-route.js') }}"></script>
-    <script src="{{ asset('bundles/app/js/app.js') }}"></script>
-    <script src="{{ asset('bundles/app/js/services.js') }}"></script>
-    <script src="{{ asset('bundles/app/js/controllers.js') }}"></script>
-    
+    <script src="web/app/node_modules/angular/angular.js"></script>
+   
     <div ng-controller="AddPostmanCtrl">
-        <form method="post" action="addpostmen">
+        <form action="/api/v1/addpostmen.html" method="post">
     <form name="postman" method="post"><div id="postman"><div>
                 <label for="postman_email" class="required">Email</label>
                 <input type="email" ng-model="postman_email" id="postman_email" name="postman[email]" required="required" />
@@ -47,13 +39,7 @@
         </div>
     </form>
 </form>
-    Result: {{ '{{ result }}' }}<br/>
-    {{ '{{postman_email}}' }}
-    {{ '{{postman_username}}'}}
-    {{'{{postman_name}}'}}
-    {{'{{postman_plainPassword_first}}'}}
-    {{'{{postman_plainPassword_second}}'}}
-    {{'{{postman_phone}}'}}
-    {{'{{postman_city}}'}}
+    {{postman_email}}
+    {{postman_username}}
+    {{postman_name}}
     </div>
-{% endblock %}
