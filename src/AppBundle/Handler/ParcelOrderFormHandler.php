@@ -26,6 +26,12 @@ class ParcelOrderFormHandler
         $entity = $this->createEntity();
         return $this->processForm($entity, $parameters, 'POST');
     }
+	
+	public function put($parcel, array $parameters)
+	{
+		return $this->processForm($parcel, $parameters, 'PUT');
+	}
+
 
     private function processForm($entity, $parameters, $method)
     {
