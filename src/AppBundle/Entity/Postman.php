@@ -21,7 +21,7 @@ class Postman extends User
     /**
      * @var City
      *
-     * @ORM\ManyToOne(targetEntity="City")
+     * @ORM\ManyToOne(targetEntity="City", cascade={"persist"})
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
     private $city;

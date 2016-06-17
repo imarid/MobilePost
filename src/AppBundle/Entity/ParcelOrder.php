@@ -24,7 +24,7 @@ class ParcelOrder
     /**
      * @var Parcel
      *
-     * @ORM\ManyToOne(targetEntity="Parcel")
+     * @ORM\ManyToOne(targetEntity="Parcel", cascade={"persist"})
      * @ORM\JoinColumn(name="parcel_id", referencedColumnName="id", nullable=false)
      */
     private $parcel;
@@ -32,7 +32,7 @@ class ParcelOrder
     /**
      * @var AddressData
      *
-     * @ORM\ManyToOne(targetEntity="AddressData")
+     * @ORM\ManyToOne(targetEntity="AddressData", cascade={"persist"})
      * @ORM\JoinColumn(name="sender_id", referencedColumnName="id", nullable=false)
      */
     private $sender;
@@ -40,7 +40,7 @@ class ParcelOrder
     /**
      * @var AddressData
      *
-     * @ORM\ManyToOne(targetEntity="AddressData")
+     * @ORM\ManyToOne(targetEntity="AddressData", cascade={"persist"})
      * @ORM\JoinColumn(name="receiver_id", referencedColumnName="id", nullable=false)
      */
     private $receiver;
