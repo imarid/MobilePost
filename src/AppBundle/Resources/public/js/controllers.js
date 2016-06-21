@@ -53,7 +53,3 @@ app.controller('AssignTasksCtrl', ['$scope', '$q', 'ParcelOrder', 'Postman', 'Ta
         }
     };
 }]);
-
-app.controller('AddPostmanCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.postman_email = null;
-}]);

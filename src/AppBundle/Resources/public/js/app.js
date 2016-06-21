@@ -1,9 +1,5 @@
 var app = angular.module("myApp", ['ngRoute', 'ngResource']);
 
-app.config(function($interpolateProvider){
-    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-});
-
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/parcelorders', {
