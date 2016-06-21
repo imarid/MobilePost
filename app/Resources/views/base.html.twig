@@ -5,7 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script>
             angular.module('mobilePost',['parcelOrder']);
@@ -56,7 +56,7 @@
                     data+="&parcel_order%5Btracking%5D="+$scope.tracking;
                     console.log(data);
                     var config = { headers : { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' }};
-                    $http.post("{{ path("api_1_post_parcelorder_add") }}", data, config).then(function(response){
+                    $http.post("{{ path("api_1_parcelorder_post_parcelorder_add") }}", data, config).then(function(response){
                         console.log(response);
                         $scope.result = 1;
                     }, function(response){
