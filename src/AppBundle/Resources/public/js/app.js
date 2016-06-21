@@ -14,10 +14,10 @@ app.config(['$routeProvider', function ($routeProvider) {
             'templateUrl': '/bundles/app/partials/assigntasks.html',
             'controller': 'AssignTasksCtrl'
         })
-				.when('/edit/:parcelId', {
-				templateUrl: '/bundles/app/partials/editAllForm.html',
-				controller: 'UpdateParcelFormCtrl'
-				})
+	.when('/edit/:parcelId', {
+	templateUrl: '/bundles/app/partials/editAllForm.html',
+	controller: 'UpdateParcelFormCtrl'
+	})
         .otherwise({
             'template': '',
             'controller': 'HomeCtrl'

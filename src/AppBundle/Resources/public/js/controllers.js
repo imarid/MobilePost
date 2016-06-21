@@ -1,3 +1,5 @@
+//var app = angular.module("mobilePost", ['ngRoute', 'ngResource']);
+
 app.controller('ParcelordersCtrl', ['$scope', '$resource', function ($scope, $resource) {
     var r = $resource('/api/v1/parcelorders.json', {}, {
     });
@@ -74,3 +76,33 @@ app.controller('CreateParcelFormCtrl', ['$scope', '$window', 'ParcelOrder', func
 	};
 }]);
 */
+app.controller('AddPostmanCtrl', ['$scope', '$http', function ($scope, $http) {
+    $scope.postman_email = null;
+    $scope.postman_username = null;
+    $scope.postman_name = null;
+    $scope.postman_plainPassword_first = null;
+    $scope.postman_plainPassword_second = null;
+    $scope.postman_phone = null;
+    $scope.postman_city = null;
+    $scope.Submit = function()
+    {
+        var data = "postman_email=" + $scope.postman_email;
+        data += "&postman_username=" + $scope.postman_username;
+        data += "&postman_name=" + $scope.postman_name;
+        data += "&postman_plainPassword_first=" + $scope.postman_plainPassword_first;
+        data += "&postman_plainPassword_second=" + $scope.postman_plainPassword_second;
+        data += "&postman_phone=" + $scope.postman_phone;
+        data += "&postman_city=" + $scope.postman_city;
+        
+        var config = { headers : { 'Content-Type': 'application/x-www-form-urlencoded;' } };
+        $http.post('addpostmen', data, config).then(
+                function(response)
+                {
+                    console.log("Success: " + response);
+                }, 
+                function(response)
+                {
+                    console.log("Error: " + response);
+                });
+    }
+}]);
