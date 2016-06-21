@@ -50,6 +50,9 @@ app.factory('ParcelOrder', ['$resource', function ($resource) {
     return $resource('/api/v1/parcelorders/:id.json', {}, {
         query: {method: 'GET', isArray: true},
         queryUnassigned: {method: 'GET', isArray: true, url: '/api/v1/parcelorders/unassigned.json'}
+        get: {method:'GET', isArray:false, headers: {'Accept': 'application/json'}},
+
+				update: {method:'PUT', headers: {'Accept': 'application/json'}}
     });
 }]);
 

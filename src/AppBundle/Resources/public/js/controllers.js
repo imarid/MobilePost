@@ -1,6 +1,7 @@
 app.controller('ParcelordersCtrl', ['$scope', '$resource', function ($scope, $resource) {
     var r = $resource('/api/v1/parcelorders.json', {}, {
     });
+
     $scope.data = r.query();
 }]);
 
@@ -53,3 +54,23 @@ app.controller('AssignTasksCtrl', ['$scope', '$q', 'ParcelOrder', 'Postman', 'Ta
         }
     };
 }]);
+
+app.controller('UpdateParcelFormCtrl', ['$scope', '$routeParams', '$window', 'ParcelOrder', function($scope, $routeParams, $window, ParcelOrder) {
+	$scope.parcelOrder = ParcelOrder.get({id: $routeParams.parcelId});
+	$scope.submit = function() {
+		ParcelOrder.update({id: $routeParams.parcelId}, $scope.parcelOrder,
+		function() {
+			$window.location.href = '#/parcelorders';
+		});
+	}
+}]);
+
+/*
+app.controller('CreateParcelFormCtrl', ['$scope', '$window', 'ParcelOrder', function($scope, $window, ParcelOrder) {
+	$scope.submit = function() {
+		ParcelOrder.save($scope.parcelOrder, function() {
+			$window.location.href = '#';
+		});
+	};
+}]);
+*/

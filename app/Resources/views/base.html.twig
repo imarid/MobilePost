@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mobilePost">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script>
+            angular.module('mobilePost',['parcelOrder']);
+            angular.module('parcelOrder',[]);
+            angular.module('parcelOrder').controller('formController', ['$scope', '$http', function($scope, $http){
+                $scope.parcelHash = null;
+                $scope.notes = null;
+                $scope.weight = null;
+                $scope.senderFirstName = null;
+                $scope.senderLastName = null;
+                $scope.senderStreet = null;
+                $scope.senderPostalCode = null;
+                $scope.senderPhone = null;
+                $scope.senderEmail = null;
+                $scope.senderCityName = null;
+                $scope.receiverFirstName = null;
+                $scope.receiverLastName = null;
+                $scope.receiverStreet = null;
+                $scope.receiverPostalCode = null;
+                $scope.receiverPhone = null;
+                $scope.receiverEmail = null;
+                $scope.receiverCityName = null;
+                $scope.status = null;
+                $scope.tracking = null;
+                $scope.result = null;
+                $scope.submit = function(){
+                    //var serialized = $("#parcelOrderForm").serialize();
+                    //console.log(serialized);
+                    var data = "";
+                    data+="parcel_order%5Bparcel%5D%5BparcelHash%5D="+$scope.parcelHash;
+                    data+="&parcel_order%5Bparcel%5D%5Bnotes%5D="+$scope.notes;
+                    data+="&parcel_order%5Bparcel%5D%5Bweight%5D="+$scope.weight;
+                    data+="&parcel_order%5Bsender%5D%5BfirstName%5D="+$scope.senderFirstName;
+                    data+="&parcel_order%5Bsender%5D%5BlastName%5D="+$scope.senderLastName;
+                    data+="&parcel_order%5Bsender%5D%5Bstreet%5D="+$scope.senderStreet;
+                    data+="&parcel_order%5Bsender%5D%5BpostalCode%5D="+$scope.senderPostalCode;
+                    data+="&parcel_order%5Bsender%5D%5Bphone%5D="+$scope.senderPhone;
+                    data+="&parcel_order%5Bsender%5D%5Bemail%5D="+encodeURIComponent($scope.senderEmail);
+                    data+="&parcel_order%5Bsender%5D%5Bcity%5D%5Bname%5D="+$scope.senderCityName;
+                    data+="&parcel_order%5Breceiver%5D%5BfirstName%5D="+$scope.receiverFirstName;
+                    data+="&parcel_order%5Breceiver%5D%5BlastName%5D="+$scope.receiverLastName;
+                    data+="&parcel_order%5Breceiver%5D%5Bstreet%5D="+$scope.receiverStreet;
+                    data+="&parcel_order%5Breceiver%5D%5BpostalCode%5D="+$scope.receiverPostalCode;
+                    data+="&parcel_order%5Breceiver%5D%5Bphone%5D="+$scope.receiverPhone;
+                    data+="&parcel_order%5Breceiver%5D%5Bemail%5D="+encodeURIComponent($scope.receiverEmail);
+                    data+="&parcel_order%5Breceiver%5D%5Bcity%5D%5Bname%5D="+$scope.receiverCityName;
+                    data+="&parcel_order%5Bstatus%5D="+$scope.status;
+                    data+="&parcel_order%5Btracking%5D="+$scope.tracking;
+                    console.log(data);
+                    var config = { headers : { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' }};
+                    $http.post("{{ path("api_1_post_parcelorder_add") }}", data, config).then(function(response){
+                        console.log(response);
+                        $scope.result = 1;
+                    }, function(response){
+                        console.log(response);
+                        $scope.result = -1;
+                    });
+                }
+            }]);
+         </script>
     </head>
     <body>
         {% block body %}{% endblock %}

@@ -14,8 +14,23 @@ app.config(['$routeProvider', function ($routeProvider) {
             'templateUrl': '/bundles/app/partials/assigntasks.html',
             'controller': 'AssignTasksCtrl'
         })
+				.when('/edit/:parcelId', {
+				templateUrl: '/bundles/app/partials/editAllForm.html',
+				controller: 'UpdateParcelFormCtrl'
+				})
         .otherwise({
             'template': '',
             'controller': 'HomeCtrl'
         });
+}]);
+
+app.directive('ngRedirectTo',['$window', function($window) {
+	return {
+		restrict: 'A',
+		link: function(scope, element, attributes) {
+			element.on('click', function() {
+				$window.location.href = attributes.ngRedirectTo;
+			});
+		}
+	}
 }]);
